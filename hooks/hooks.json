@@ -1,0 +1,25 @@
+{
+  "SessionStart": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/consensus-reminder.sh\"",
+          "timeout": 5,
+          "statusMessage": "Loading consensus mode..."
+        }
+      ]
+    }
+  ],
+  "UserPromptSubmit": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/consensus-reminder.sh\" short",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}
