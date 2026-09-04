@@ -1,5 +1,5 @@
 {
-  "name": "consensus",
+  "name": "interns-review",
   "version": "0.1.0",
   "description": "Consensus review loop: every proposed design or bug-fix solution gets critically reviewed by 1-3 Fable subagents before it is finalized. Reviewer findings are treated as intern findings and filtered by the main agent.",
   "author": {

@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "consensus",
+  "name": "interns-review",
   "description": "Consensus review loop for agent-proposed solutions.",
   "owner": {
     "name": "Alp Bahadur",
@@ -8,7 +8,7 @@
   },
   "plugins": [
     {
-      "name": "consensus",
+      "name": "interns-review",
       "description": "Critically review every proposed design / bug-fix solution with 1-3 Fable subagents before finalizing.",
       "source": "./",
       "category": "productivity"

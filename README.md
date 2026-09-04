@@ -1,4 +1,4 @@
-# consensus
+# interns-review
 
 Claude Code plugin. Every proposed solution the agent forms — a design, an architecture choice, a bug diagnosis + fix, a refactor plan — is critically reviewed by 1-3 Fable subagents before it is presented as final. The main agent treats reviewer output as intern findings: verifies each, keeps the valid ones, discards the rest.
 
@@ -23,8 +23,8 @@ Claude Code plugin. Every proposed solution the agent forms — a design, an arc
 ## Install (Claude Code)
 
 ```bash
-claude plugin marketplace add alpbahadur/consensus-plugin
-claude plugin install consensus@consensus --scope user
+claude plugin marketplace add alpbahadur/interns-review-plugin
+claude plugin install interns-review@interns-review --scope user
 ```
 
 Private repo: `git` must be able to clone it (gh credential helper or SSH).
