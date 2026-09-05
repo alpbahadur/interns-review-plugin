@@ -3,92 +3,51 @@
 <head>
 <meta charset="utf-8">
 <title>interns-review</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0a0c11;--line:#2a3040;--text:#eef1f7;--muted:#8a93a8;--amber:#f5b84a;--blue:#6aa9ff;--green:#4ade80;--red:#f87171;--main:#e8ebf2}
+  :root{--paper:#f6f4ef;--ink:#1c1b18;--soft:#8c8880;--rule:#cfcbc2;--red:#c8442b}
   *{box-sizing:border-box}
-  body{margin:0;width:1280px;height:720px;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;position:relative}
-  body::before{content:"";position:absolute;inset:0;background:
-    radial-gradient(700px 360px at 50% 55%,rgba(106,169,255,.09),transparent 70%),
-    radial-gradient(500px 260px at 20% 15%,rgba(245,184,74,.08),transparent 70%);}
-  body::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(800px 500px at 50% 50%,#000 30%,transparent 100%)}
-  .hdr{position:absolute;left:64px;top:48px;z-index:2}
-  .kicker{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase}
-  h1{margin:8px 0 0;font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
-  h1 span{color:var(--amber)}
-  .brand{position:absolute;right:64px;top:52px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);z-index:2}
-  .brand b{color:var(--text);font-weight:500}
-  svg{position:absolute;inset:0;z-index:1}
-  .node{position:absolute;z-index:3;transform:translate(-50%,-9px);text-align:center}
-  .dot{width:18px;height:18px;border-radius:999px;margin:0 auto;border:3px solid var(--bg);box-shadow:0 0 0 2px currentColor,0 0 24px currentColor}
-  .lbl{margin-top:10px;font-size:13px;font-weight:600;white-space:nowrap}
-  .sub{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap}
-  .main .dot{background:var(--main);color:var(--main)}
-  .rev .dot{background:var(--blue);color:var(--blue)}
-  .rev .lbl{font-size:12.5px;font-weight:500}
-  .rev .sub{color:#7fa8de}
-  .fork .dot,.merge .dot{background:var(--amber);color:var(--amber)}
-  .tag{position:absolute;z-index:3;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);background:rgba(10,12,17,.85);border:1px solid var(--line);border-radius:6px;padding:4px 8px;transform:translate(-50%,-50%);white-space:nowrap}
-  .tag.amber{color:var(--amber);border-color:rgba(245,184,74,.4)}
-  .verdict{position:absolute;z-index:3;font-family:"JetBrains Mono",monospace;font-size:11.5px;transform:translate(0,-50%);white-space:nowrap}
-  .g{color:var(--green)}.r{color:var(--red)}
-  .lane{position:absolute;left:64px;bottom:44px;z-index:2;display:flex;gap:26px;font-size:12px;color:var(--muted);align-items:center}
-  .sw{display:inline-block;width:22px;height:3px;border-radius:2px;vertical-align:middle;margin-right:7px}
-  .foot{position:absolute;right:64px;bottom:44px;z-index:2;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+  body{margin:0;width:1280px;height:720px;overflow:hidden;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;position:relative;font-weight:300}
+  .t{position:absolute;left:96px;top:88px;font-size:26px;letter-spacing:-.01em;line-height:1.3}
+  .t b{font-weight:500}
+  .t i{font-style:normal;color:var(--red)}
+  .name{position:absolute;right:96px;top:96px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--soft);letter-spacing:.06em}
+  svg{position:absolute;inset:0}
+  .n{position:absolute;transform:translate(-50%,-6px);text-align:center}
+  .n .d{width:12px;height:12px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);margin:0 auto}
+  .n .l{margin-top:14px;font-size:13px;white-space:nowrap}
+  .n .s{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--soft);margin-top:4px;white-space:nowrap}
+  .n.k .d{background:var(--red);border-color:var(--red)}
+  .n.r .d{border-color:var(--soft)}
+  .n.r .l{color:var(--soft)}
+  .foot{position:absolute;left:96px;bottom:80px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--soft);letter-spacing:.04em}
+  .seal{position:absolute;right:96px;bottom:72px;width:34px;height:34px;border:1.5px solid var(--red);color:var(--red);font-size:15px;display:grid;place-items:center;font-weight:500}
 </style>
 </head>
 <body>
-<div class="hdr">
-  <div class="kicker">consensus mechanism</div>
-  <h1>Fork the conversation. <span>Attack the idea.</span> Merge what survives.</h1>
-</div>
-<div class="brand"><b>interns-review</b> · Claude Code plugin</div>
+<div class="t">One idea.<br><b>Three critics.</b><br>What survives, <i>ships</i>.</div>
+<div class="name">interns-review</div>
 
-<svg viewBox="0 0 1280 720" fill="none">
-  <defs>
-    <linearGradient id="mainG" x1="0" x2="1"><stop offset="0" stop-color="#e8ebf2" stop-opacity=".25"/><stop offset=".5" stop-color="#e8ebf2"/><stop offset="1" stop-color="#e8ebf2" stop-opacity=".25"/></linearGradient>
-    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-  <!-- main conversation line -->
-  <path d="M40 400 H1240" stroke="url(#mainG)" stroke-width="3" stroke-linecap="round"/>
-  <!-- fork: from x=430 to reviewers at x=680 -->
-  <g stroke="#6aa9ff" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)" opacity=".95">
-    <path d="M430 400 C520 400 520 240 610 240 H760 C850 240 850 400 930 400"/>
-    <path d="M430 400 H930"/>
-    <path d="M430 400 C520 400 520 560 610 560 H760 C850 560 850 400 930 400"/>
+<svg viewBox="0 0 1280 720" fill="none" stroke="#1c1b18" stroke-width="1.2" stroke-linecap="round">
+  <path d="M180 420 H1100"/>
+  <g stroke="#8c8880">
+    <path d="M460 420 C540 420 540 300 620 300 H740 C820 300 820 420 900 420"/>
+    <path d="M460 420 C540 420 540 540 620 540 H740 C820 540 820 420 900 420"/>
   </g>
-  <!-- dashed context-file arrow overlay on the fork -->
-  <path d="M430 400 H470" stroke="#f5b84a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M890 400 H930" stroke="#f5b84a" stroke-width="3" stroke-linecap="round"/>
 </svg>
 
-<!-- main nodes -->
-<div class="node main" style="left:150px;top:400px"><div class="dot"></div><div class="lbl">User asks</div><div class="sub">bug / design / refactor</div></div>
-<div class="node main" style="left:300px;top:400px"><div class="dot"></div><div class="lbl">Lead proposes</div><div class="sub">first draft</div></div>
-<div class="node fork" style="left:430px;top:400px"><div class="dot"></div><div class="lbl">Fork</div><div class="sub">1 context file</div></div>
+<div class="n"   style="left:180px;top:420px"><div class="d"></div><div class="l">asks</div></div>
+<div class="n"   style="left:320px;top:420px"><div class="d"></div><div class="l">proposes</div><div class="s">draft</div></div>
+<div class="n k" style="left:460px;top:420px"><div class="d"></div><div class="l">fork</div><div class="s">one file</div></div>
 
-<!-- reviewer nodes -->
-<div class="node rev" style="left:685px;top:240px"><div class="dot"></div><div class="lbl">Reviewer A</div><div class="sub">fable · correctness</div></div>
-<div class="node rev" style="left:685px;top:400px"><div class="dot"></div><div class="lbl">Reviewer B</div><div class="sub">fable · edge cases</div></div>
-<div class="node rev" style="left:685px;top:560px"><div class="dot"></div><div class="lbl">Reviewer C</div><div class="sub">fable · simplicity</div></div>
+<div class="n r" style="left:680px;top:300px"><div class="d"></div><div class="l">critic</div></div>
+<div class="n r" style="left:680px;top:420px"><div class="d"></div><div class="l">critic</div><div class="s">isolated · fable</div></div>
+<div class="n r" style="left:680px;top:540px"><div class="d"></div><div class="l">critic</div></div>
 
-<div class="tag amber" style="left:685px;top:322px">"be critical. do not over-engineer."</div>
-<div class="tag" style="left:685px;top:480px">parallel · isolated · read-only</div>
+<div class="n k" style="left:900px;top:420px"><div class="d"></div><div class="l">verifies</div><div class="s">trust nothing</div></div>
+<div class="n"   style="left:1100px;top:420px"><div class="d"></div><div class="l">ships</div></div>
 
-<!-- merge -->
-<div class="node merge" style="left:930px;top:400px"><div class="dot"></div><div class="lbl">Lead verifies</div><div class="sub">findings = intern findings</div></div>
-<div class="verdict" style="left:1000px;top:262px"><span class="g">✔ accept</span> <span style="color:#8a93a8">verified in code</span></div>
-<div class="verdict" style="left:1000px;top:290px"><span class="g">✔ accept</span> <span style="color:#8a93a8">simpler alt wins</span></div>
-<div class="verdict" style="left:1000px;top:318px"><span class="r">✘ reject</span> <span style="color:#8a93a8">over-engineered</span></div>
-<div class="verdict" style="left:1000px;top:346px"><span class="r">✘ reject</span> <span style="color:#8a93a8">not in code</span></div>
-
-<div class="node main" style="left:1130px;top:400px"><div class="dot"></div><div class="lbl">Final solution</div><div class="sub">+ receipt</div></div>
-
-<div class="lane">
-  <span><i class="sw" style="background:#e8ebf2"></i>main conversation</span>
-  <span><i class="sw" style="background:#6aa9ff"></i>reviewer subagents</span>
-  <span><i class="sw" style="background:#f5b84a"></i>fork / merge</span>
-</div>
 <div class="foot">claude plugin marketplace add alpbahadur/interns-review-plugin</div>
+<div class="seal">審</div>
 </body>
 </html>
