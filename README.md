@@ -101,4 +101,4 @@ Not on Claude Code? `AGENTS.md` describes the identical loop in agent-agnostic t
 
 ## Status
 
-Early. Private for now. Open-sourcing once it has survived a few weeks of real use.
+Early. MIT licensed. Issues and PRs welcome.
