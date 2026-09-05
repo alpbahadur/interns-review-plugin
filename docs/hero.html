@@ -2,130 +2,93 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>interns-review — hero</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<title>interns-review</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0b0d12;
-    --panel: #12151d;
-    --line: #232837;
-    --text: #e8ebf2;
-    --muted: #8b93a7;
-    --accent: #f5b84a;
-    --green: #4ade80;
-    --red: #f87171;
-    --blue: #60a5fa;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: Inter, system-ui, sans-serif;
-    width: 1280px; height: 720px; overflow: hidden; position: relative;
-  }
-  body::before {
-    content: ""; position: absolute; inset: 0;
-    background:
-      radial-gradient(600px 300px at 15% 20%, rgba(245,184,74,.10), transparent 70%),
-      radial-gradient(500px 300px at 85% 80%, rgba(96,165,250,.08), transparent 70%);
-    pointer-events: none;
-  }
-  .wrap { position: relative; padding: 52px 64px; height: 100%; display: flex; flex-direction: column; }
-  .kicker { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; }
-  h1 { font-size: 46px; font-weight: 800; letter-spacing: -.02em; margin: 10px 0 8px; line-height: 1.05; }
-  h1 span { color: var(--accent); }
-  .sub { color: var(--muted); font-size: 18px; margin: 0 0 34px; max-width: 900px; line-height: 1.4; }
-
-  .flow { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr; align-items: center; gap: 0; flex: 1; }
-  .card {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-    padding: 18px 18px 16px; height: 300px; display: flex; flex-direction: column; position: relative;
-  }
-  .card .n { position: absolute; top: -12px; left: 16px; background: var(--accent); color: #111; font-weight: 800; font-size: 12px; width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center; }
-  .card h3 { margin: 6px 0 4px; font-size: 16px; font-weight: 600; }
-  .card p { margin: 0 0 12px; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
-  .mono { font-family: "JetBrains Mono", monospace; font-size: 11.5px; line-height: 1.5; background: #0b0e15; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; color: #c9d0e0; white-space: pre; overflow: hidden; flex: 1; }
-  .arrow { color: var(--line); font-size: 26px; text-align: center; }
-  .reviewers { display: flex; flex-direction: column; gap: 7px; flex: 1; }
-  .rev { display: flex; align-items: center; gap: 8px; height: 100%; background: #0b0e15; border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; font-size: 12px; }
-  .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--blue); flex: none; }
-  .rev small { color: var(--muted); margin-left: auto; font-family: "JetBrains Mono", monospace; font-size: 10.5px; }
-  .g { color: var(--green); } .r { color: var(--red); } .y { color: var(--accent); } .b { color: var(--blue); }
-
-  .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; color: var(--muted); font-size: 13px; }
-  .foot code { font-family: "JetBrains Mono", monospace; background: var(--panel); border: 1px solid var(--line); padding: 6px 10px; border-radius: 8px; color: var(--text); font-size: 12.5px; }
-  .pills { display: flex; gap: 8px; }
-  .pill { border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 11.5px; color: var(--muted); }
+  :root{--bg:#0a0c11;--line:#2a3040;--text:#eef1f7;--muted:#8a93a8;--amber:#f5b84a;--blue:#6aa9ff;--green:#4ade80;--red:#f87171;--main:#e8ebf2}
+  *{box-sizing:border-box}
+  body{margin:0;width:1280px;height:720px;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;position:relative}
+  body::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(700px 360px at 50% 55%,rgba(106,169,255,.09),transparent 70%),
+    radial-gradient(500px 260px at 20% 15%,rgba(245,184,74,.08),transparent 70%);}
+  body::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(800px 500px at 50% 50%,#000 30%,transparent 100%)}
+  .hdr{position:absolute;left:64px;top:48px;z-index:2}
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase}
+  h1{margin:8px 0 0;font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  h1 span{color:var(--amber)}
+  .brand{position:absolute;right:64px;top:52px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);z-index:2}
+  .brand b{color:var(--text);font-weight:500}
+  svg{position:absolute;inset:0;z-index:1}
+  .node{position:absolute;z-index:3;transform:translate(-50%,-9px);text-align:center}
+  .dot{width:18px;height:18px;border-radius:999px;margin:0 auto;border:3px solid var(--bg);box-shadow:0 0 0 2px currentColor,0 0 24px currentColor}
+  .lbl{margin-top:10px;font-size:13px;font-weight:600;white-space:nowrap}
+  .sub{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap}
+  .main .dot{background:var(--main);color:var(--main)}
+  .rev .dot{background:var(--blue);color:var(--blue)}
+  .rev .lbl{font-size:12.5px;font-weight:500}
+  .rev .sub{color:#7fa8de}
+  .fork .dot,.merge .dot{background:var(--amber);color:var(--amber)}
+  .tag{position:absolute;z-index:3;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);background:rgba(10,12,17,.85);border:1px solid var(--line);border-radius:6px;padding:4px 8px;transform:translate(-50%,-50%);white-space:nowrap}
+  .tag.amber{color:var(--amber);border-color:rgba(245,184,74,.4)}
+  .verdict{position:absolute;z-index:3;font-family:"JetBrains Mono",monospace;font-size:11.5px;transform:translate(0,-50%);white-space:nowrap}
+  .g{color:var(--green)}.r{color:var(--red)}
+  .lane{position:absolute;left:64px;bottom:44px;z-index:2;display:flex;gap:26px;font-size:12px;color:var(--muted);align-items:center}
+  .sw{display:inline-block;width:22px;height:3px;border-radius:2px;vertical-align:middle;margin-right:7px}
+  .foot{position:absolute;right:64px;bottom:44px;z-index:2;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="kicker">Claude Code plugin</div>
-  <h1>Your agent's first idea is a draft.<br><span>interns-review</span> makes it a decision.</h1>
-  <p class="sub">Every proposed design or bug fix gets torn apart by 1–3 independent Fable reviewers before it reaches you. The lead agent verifies their findings against the code, keeps what's real, and ships the rest.</p>
-
-  <div class="flow">
-    <div class="card">
-      <div class="n">1</div>
-      <h3>Agent proposes</h3>
-      <p>Problem, pointers, constraints, and the proposed fix go into one context file.</p>
-      <div class="mono"><span class="y"># consensus-ctx.md</span>
-## Problem
-Auth tokens accepted
-1 tick after expiry
-## Pointers
-auth/mw.ts:42
-## Proposed
-change `&lt;` to `&lt;=`
-## Doubt
-only check site?</div>
-    </div>
-    <div class="arrow">›</div>
-
-    <div class="card">
-      <div class="n">2</div>
-      <h3>Reviewers attack</h3>
-      <p>Parallel Fable subagents. Each gets a different lens. None sees the others.</p>
-      <div class="reviewers">
-        <div class="rev"><span class="dot"></span>Correctness &amp; root cause<small>fable</small></div>
-        <div class="rev"><span class="dot"></span>Edge cases &amp; blast radius<small>fable</small></div>
-        <div class="rev"><span class="dot"></span>Simplicity &amp; over-engineering<small>fable</small></div>
-      </div>
-    </div>
-    <div class="arrow">›</div>
-
-    <div class="card">
-      <div class="n">3</div>
-      <h3>Lead filters</h3>
-      <p>Findings are treated as <b>intern findings</b>. Verified against code. Wrong ones die.</p>
-      <div class="mono"><span class="g">✔ ACCEPT</span> mw.ts:42 off-by-one
-  verified in code
-<span class="g">✔ ACCEPT</span> missing test for
-  boundary tick
-<span class="r">✘ REJECT</span> "add token cache
-  layer" — over-engineered
-<span class="r">✘ REJECT</span> mw.ts:118 claim
-  not in code (unverified)</div>
-    </div>
-    <div class="arrow">›</div>
-
-    <div class="card">
-      <div class="n">4</div>
-      <h3>Final solution</h3>
-      <p>Accepted findings folded in. Short receipt of what changed and why.</p>
-      <div class="mono"><span class="b">## Consensus</span>
-Reviewers: 3
-Accepted: 2
-Rejected: 2
-Open questions: 0
-
-<span class="g">→ fix + boundary test</span></div>
-    </div>
-  </div>
-
-  <div class="foot">
-    <code>claude plugin marketplace add alpbahadur/interns-review-plugin</code>
-    <div class="pills"><span class="pill">no blind trust</span><span class="pill">no over-engineering</span><span class="pill">1–3 reviewers</span></div>
-  </div>
+<div class="hdr">
+  <div class="kicker">consensus mechanism</div>
+  <h1>Fork the conversation. <span>Attack the idea.</span> Merge what survives.</h1>
 </div>
+<div class="brand"><b>interns-review</b> · Claude Code plugin</div>
+
+<svg viewBox="0 0 1280 720" fill="none">
+  <defs>
+    <linearGradient id="mainG" x1="0" x2="1"><stop offset="0" stop-color="#e8ebf2" stop-opacity=".25"/><stop offset=".5" stop-color="#e8ebf2"/><stop offset="1" stop-color="#e8ebf2" stop-opacity=".25"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <!-- main conversation line -->
+  <path d="M40 400 H1240" stroke="url(#mainG)" stroke-width="3" stroke-linecap="round"/>
+  <!-- fork: from x=430 to reviewers at x=680 -->
+  <g stroke="#6aa9ff" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)" opacity=".95">
+    <path d="M430 400 C520 400 520 240 610 240 H760 C850 240 850 400 930 400"/>
+    <path d="M430 400 H930"/>
+    <path d="M430 400 C520 400 520 560 610 560 H760 C850 560 850 400 930 400"/>
+  </g>
+  <!-- dashed context-file arrow overlay on the fork -->
+  <path d="M430 400 H470" stroke="#f5b84a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M890 400 H930" stroke="#f5b84a" stroke-width="3" stroke-linecap="round"/>
+</svg>
+
+<!-- main nodes -->
+<div class="node main" style="left:150px;top:400px"><div class="dot"></div><div class="lbl">User asks</div><div class="sub">bug / design / refactor</div></div>
+<div class="node main" style="left:300px;top:400px"><div class="dot"></div><div class="lbl">Lead proposes</div><div class="sub">first draft</div></div>
+<div class="node fork" style="left:430px;top:400px"><div class="dot"></div><div class="lbl">Fork</div><div class="sub">1 context file</div></div>
+
+<!-- reviewer nodes -->
+<div class="node rev" style="left:685px;top:240px"><div class="dot"></div><div class="lbl">Reviewer A</div><div class="sub">fable · correctness</div></div>
+<div class="node rev" style="left:685px;top:400px"><div class="dot"></div><div class="lbl">Reviewer B</div><div class="sub">fable · edge cases</div></div>
+<div class="node rev" style="left:685px;top:560px"><div class="dot"></div><div class="lbl">Reviewer C</div><div class="sub">fable · simplicity</div></div>
+
+<div class="tag amber" style="left:685px;top:322px">"be critical. do not over-engineer."</div>
+<div class="tag" style="left:685px;top:480px">parallel · isolated · read-only</div>
+
+<!-- merge -->
+<div class="node merge" style="left:930px;top:400px"><div class="dot"></div><div class="lbl">Lead verifies</div><div class="sub">findings = intern findings</div></div>
+<div class="verdict" style="left:1000px;top:262px"><span class="g">✔ accept</span> <span style="color:#8a93a8">verified in code</span></div>
+<div class="verdict" style="left:1000px;top:290px"><span class="g">✔ accept</span> <span style="color:#8a93a8">simpler alt wins</span></div>
+<div class="verdict" style="left:1000px;top:318px"><span class="r">✘ reject</span> <span style="color:#8a93a8">over-engineered</span></div>
+<div class="verdict" style="left:1000px;top:346px"><span class="r">✘ reject</span> <span style="color:#8a93a8">not in code</span></div>
+
+<div class="node main" style="left:1130px;top:400px"><div class="dot"></div><div class="lbl">Final solution</div><div class="sub">+ receipt</div></div>
+
+<div class="lane">
+  <span><i class="sw" style="background:#e8ebf2"></i>main conversation</span>
+  <span><i class="sw" style="background:#6aa9ff"></i>reviewer subagents</span>
+  <span><i class="sw" style="background:#f5b84a"></i>fork / merge</span>
+</div>
+<div class="foot">claude plugin marketplace add alpbahadur/interns-review-plugin</div>
 </body>
 </html>
