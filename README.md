@@ -41,13 +41,13 @@ Result: you get a solution that survived contact with three critics, plus a two-
 
 Triggered automatically whenever the agent has formed a proposal (design, architecture choice, bug diagnosis + fix, refactor plan). Also manual via `/consensus`.
 
-1. **Context file.** The lead writes one self-contained file: problem, verbatim errors, `path:line` pointers with targeted snippets, constraints, what was already ruled out, the proposed solution, and its own doubts. No conversation history leaks in.
+1. **Context file.** The lead writes one self-contained file: problem, verbatim errors, `path:line` pointers with targeted snippets, constraints, what was already ruled out, the proposed solution, and its own doubts. No conversation history leaks in. Reviewers never see the chat, so they cannot inherit the lead's framing, its half-remembered assumptions, or the user's earlier hints. Pointers instead of pasted files force the reviewers to open the real code rather than trust a summary. The lead's own doubts go in on purpose: a reviewer told where the lead is unsure spends its effort where it matters.
 2. **Reviewers.** 1–3 `consensus-reviewer` subagents (model: `fable`, read-only tools) run in parallel with the prompt:
    > *Critically review the solution to the problem suggested by our intern. Be critical: review it, verify it against the code, and suggest changes to the solution if it is not good enough. Do not over-engineer.*
 
-   Each gets a different lens: correctness & root cause / edge cases & blast radius / simplicity & over-engineering.
-3. **Filter.** The lead opens the code for every finding. Wrong, out-of-scope, style-only, or over-engineered findings are rejected. Disagreements are settled by the code, not by majority vote. A genuinely simpler alternative from a reviewer wins over the lead's original.
-4. **Final solution + receipt.** Reviewers spawned, accepted findings, rejected findings with reasons, open questions only the user can answer.
+   Each gets a different lens: correctness & root cause / edge cases & blast radius / simplicity & over-engineering. Read-only tools mean a reviewer can grep, read, and run checks but cannot touch the tree. Output is a fixed shape: verdict, severity-tagged findings with `path:line`, an optional simpler alternative, and a verification suggestion, capped at roughly sixty lines. Anything a reviewer could not confirm in the code must be marked `unverified` rather than asserted.
+3. **Filter.** The lead opens the code for every finding. Wrong, out-of-scope, style-only, or over-engineered findings are rejected. Disagreements are settled by the code, not by majority vote. A genuinely simpler alternative from a reviewer wins over the lead's original. This is the step that makes the loop honest: reviewers are strong models but they are still guessing from a cold start, so their output is treated as intern work, not gospel. Every accept and every reject must have a one-line reason the lead could defend. If the code cannot settle a disagreement, it is escalated to the user as an open question instead of being quietly decided.
+4. **Final solution + receipt.** Reviewers spawned, accepted findings, rejected findings with reasons, open questions only the user can answer. The receipt is short by design: a few lines, not a transcript of three reviews. It lets you see at a glance what changed because of review and what was thrown out, so you can override either. The context file is disposable and can be deleted once the receipt is written.
 
 Reviewer count scales with stakes:
 
