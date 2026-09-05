@@ -1,40 +1,96 @@
-# interns-review
+<p align="center">
+  <img src="docs/hero.png" alt="interns-review: your agent's first idea is a draft. interns-review makes it a decision." width="100%">
+</p>
 
-Claude Code plugin. Every proposed solution the agent forms — a design, an architecture choice, a bug diagnosis + fix, a refactor plan — is critically reviewed by 1-3 Fable subagents before it is presented as final. The main agent treats reviewer output as intern findings: verifies each, keeps the valid ones, discards the rest.
+<h1 align="center">interns-review</h1>
 
-## Flow
+<p align="center">
+  <b>Adversarial review for every solution your coding agent proposes.</b><br>
+  1–3 independent Fable reviewers tear the idea apart. The lead agent verifies their findings against the code, keeps what's real, and ships the rest.
+</p>
 
-1. Main agent writes full problem context + proposed solution to one temp file (`templates/context.md`).
-2. Spawns 1-3 `consensus-reviewer` subagents (model: fable) with: *"Critically review the solution to the problem suggested by our intern. Be critical, review, and suggest changes to the solution if it is not good enough. Do not over-engineer."*
-3. Main agent verifies every finding against the code. No blind trust.
-4. Accepted findings folded into the final solution, with a short receipt of what was accepted / rejected.
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#why">Why</a> ·
+  <a href="#other-agents">Other agents</a> ·
+  <a href="#tuning">Tuning</a>
+</p>
 
-## What is in the box
+---
 
-| Path | Purpose |
+## Why
+
+Coding agents are confident. Their first proposal is usually *plausible*, often *incomplete*, and sometimes *wrong* in a way you only discover after it ships.
+
+The usual fix is "ask it to double-check". That doesn't work: the same model, in the same context, with the same blind spots, reviewing its own idea.
+
+**interns-review** changes the shape of the loop:
+
+| Without | With interns-review |
 |---|---|
-| `skills/consensus/SKILL.md` | The workflow. Auto-triggers when the agent has a proposal; also `/consensus`. |
-| `agents/consensus-reviewer.md` | Reviewer subagent definition (Fable, read-only tools, strict output format). |
-| `hooks/hooks.json` + `hooks/consensus-reminder.sh` | Injects the rule at SessionStart and a one-line reminder on every prompt so the agent does not forget after long sessions. |
-| `commands/consensus.md` | `/consensus` slash command. |
-| `templates/context.md` | Template for the context file. |
-| `AGENTS.md` | Same workflow written for non-Claude agents (Codex, Cursor, Gemini CLI...). |
+| One model, one pass, one opinion | Lead proposes, independent reviewers attack, lead judges |
+| Reviewer sees the whole conversation and inherits its assumptions | Reviewers see only a clean context file and the repo |
+| "Looks good to me" | Severity-tagged findings, verified against actual code, or explicitly marked `unverified` |
+| Every suggestion gets applied | Findings are **intern findings**: wrong ones are rejected with a reason |
+| Reviews drift into refactor proposals | "Do not over-engineer" is a rule for the reviewers *and* the lead |
 
-## Install (Claude Code)
+Result: you get a solution that survived contact with three critics, plus a two-line receipt of what they changed and what was thrown out.
+
+## How it works
+
+Triggered automatically whenever the agent has formed a proposal (design, architecture choice, bug diagnosis + fix, refactor plan). Also manual via `/consensus`.
+
+1. **Context file.** The lead writes one self-contained file: problem, verbatim errors, `path:line` pointers with targeted snippets, constraints, what was already ruled out, the proposed solution, and its own doubts. No conversation history leaks in.
+2. **Reviewers.** 1–3 `consensus-reviewer` subagents (model: `fable`, read-only tools) run in parallel with the prompt:
+   > *Critically review the solution to the problem suggested by our intern. Be critical: review it, verify it against the code, and suggest changes to the solution if it is not good enough. Do not over-engineer.*
+
+   Each gets a different lens: correctness & root cause / edge cases & blast radius / simplicity & over-engineering.
+3. **Filter.** The lead opens the code for every finding. Wrong, out-of-scope, style-only, or over-engineered findings are rejected. Disagreements are settled by the code, not by majority vote. A genuinely simpler alternative from a reviewer wins over the lead's original.
+4. **Final solution + receipt.** Reviewers spawned, accepted findings, rejected findings with reasons, open questions only the user can answer.
+
+Reviewer count scales with stakes:
+
+| Situation | Reviewers |
+|---|---|
+| Contained bug fix, low blast radius | 1 |
+| Design decision, cross-cutting refactor, unclear root cause | 2 |
+| Architecture, data model, security, migrations, irreversible changes | 3 |
+
+Skips automatically for trivial one-liners and pure Q&A. Say **"no consensus"** or **"skip review"** to skip on demand.
+
+## Install
 
 ```bash
 claude plugin marketplace add alpbahadur/interns-review-plugin
 claude plugin install interns-review@interns-review --scope user
 ```
 
-Private repo: `git` must be able to clone it (gh credential helper or SSH).
+`--scope user` enables it for every Claude Code session on the machine. Restart open sessions to load it.
 
-## Skip
+## What's in the box
 
-Say "no consensus" or "skip review" in the prompt. Trivial one-line edits and pure Q&A skip automatically.
+| Path | Purpose |
+|---|---|
+| `skills/consensus/SKILL.md` | The workflow. Auto-triggers on a proposal; also `/consensus`. |
+| `agents/consensus-reviewer.md` | Reviewer subagent: Fable, read-only tools, strict `VERDICT / FINDINGS / ALTERNATIVE` output, ≤60 lines. |
+| `hooks/` | Injects the rule at session start and a one-line reminder on every prompt, so long sessions don't forget it. |
+| `commands/consensus.md` | `/consensus` slash command. |
+| `templates/context.md` | Skeleton for the context file. |
+| `AGENTS.md` | The same workflow written for non-Claude agents. |
+| `docs/hero.html` | The banner above. Open in a browser and screenshot. |
+
+## Other agents
+
+Not on Claude Code? `AGENTS.md` describes the identical loop in agent-agnostic terms. Drop it into your Codex / Cursor / Gemini CLI instructions and point the reviewer role at the strongest model you have.
 
 ## Tuning
 
-- Reviewer count table lives in `skills/consensus/SKILL.md` Step 2.
-- Reviewer model: `model:` in `agents/consensus-reviewer.md`.
-- Hook reminder text: `hooks/consensus-reminder.sh`.
+- **Reviewer count table:** `skills/consensus/SKILL.md`, Step 2.
+- **Reviewer model / tools:** frontmatter in `agents/consensus-reviewer.md`.
+- **Reminder wording / skip words:** `hooks/consensus-reminder.sh`.
+- **Update after editing:** push, then `claude plugin update interns-review@interns-review`.
+
+## Status
+
+Early. Private for now. Open-sourcing once it has survived a few weeks of real use.
